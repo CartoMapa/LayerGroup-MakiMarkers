@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agrupando marcadores estilizados</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js?2"></script>
+    <script src="Leaflet.MakiMarkers.js"></script>
+</head>
+
+<body>
+    <div id="map" style="position: absolute; top: 0; left: 0; margin: 0; width: 100%; height: 	100%;"></div>
+
+    <script>
+        
+<!-- adicionando o mapa -->    
+    
+        var map = L.map('map').setView([-30.048817, -51.228674], 13);
+
+        
+<!-- adicionando o mapa-base -->            
+        
+    var basemap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo( map );
+
+<!-- adicionando os estilos de acordo com o plugin L.MakiMarkers -->            
+        
+	var estilochimarrao = L.MakiMarkers.icon({
+            icon: "heart",
+            color: "#ff0000",
+            size: "l"
+        });
+
+    var estiloeventosgauchos = L.MakiMarkers.icon({
+            icon: "heart",
+            color: "#00a002",
+            size: "m"
+        });
+
+<!-- adicionando os grupos de marcadores -->            
+        
+	var chimarrao = L.layerGroup([
+        L.marker([-30.034142, -51.241201], {icon: estilochimarrao}).bindPopup("<strong>Bah, um chimas no Gasômetro!!</strong>").openPopup(),
+        L.marker([-30.035986, -51.215640], {icon: estilochimarrao}).bindPopup("<strong>Bah, um chimas na Redenção!!</strong>"),
+        L.marker([-30.042199, -51.218387], {icon: estilochimarrao}).bindPopup("<strong>Que Polar que nada, tchê...Chimas na Cidade Baixa!!</strong>")
+                              ]).addTo(map);
+		
+	var eventosgauchos = L.layerGroup([
+        L.marker([-30.065430, -51.235901], {icon: estiloeventosgauchos}).bindPopup("<strong> Dia de Grenal!!</strong>"),
+		L.marker([-30.044164, -51.241024], {icon: estiloeventosgauchos}).bindPopup("<strong>De barco no Guaíba!!!</strong>"),
+		L.marker([-30.041592, -51.237165], {icon: estiloeventosgauchos}).bindPopup("<strong>Em Setembro é Semana Farroupilha!!!</strong>")
+        ]).addTo(map);
+ 
+<!-- adicionando o controlador de camadas -->             
+        
+        L.control.layers ({},{
+				'Chimarrão!': chimarrao,
+				'Eventos Gauchescos': eventosgauchos	
+							}, {
+					collapsed: false}).addTo(map);
+	
+</script>
+</body>
+</html>
+
